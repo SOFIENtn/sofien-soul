@@ -1,4 +1,4 @@
-<index.html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -67,14 +67,14 @@
 
         header h1 {
             font-family: 'Aref Ruqaa', serif;
-            font-size: 4rem;
+            font-size: clamp(2.5rem, 8vw, 4rem);
             color: var(--gold);
             margin: 0;
             text-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
         }
 
         header p {
-            font-size: 1.4rem;
+            font-size: clamp(1rem, 3vw, 1.4rem);
             opacity: 0.7;
             margin-top: 10px;
             letter-spacing: 3px;
@@ -94,8 +94,8 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 50px;
-            font-size: 2.2rem;
+            padding: 30px;
+            font-size: clamp(1.2rem, 4vw, 2.2rem);
             line-height: 1.5;
             box-shadow: var(--shadow);
             transition: opacity 0.4s ease, transform 0.4s ease;
@@ -109,19 +109,19 @@
         /* Navigation Buttons */
         .controls {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
             width: 90%;
             max-width: 1100px;
             margin-bottom: 30px;
         }
 
         .btn {
-            padding: 25px 15px;
+            padding: 20px 10px;
             border: none;
             border-radius: 20px;
             font-family: 'Amiri', serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -137,21 +137,11 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.6);
         }
 
-        .btn:active { transform: translateY(0); }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(255,255,255,0.1), transparent);
-        }
-
         .btn-depression { background: linear-gradient(135deg, #7b0909, #3d0505); border-bottom: 5px solid #2d0202; }
         .btn-dev { background: linear-gradient(135deg, #0f4c75, #1b262c); border-bottom: 5px solid #051622; }
         .btn-philo { background: linear-gradient(135deg, #4e31aa, #2a1b5e); border-bottom: 5px solid #1a0d3d; }
         .btn-psy { background: linear-gradient(135deg, #1b9c85, #125c4e); border-bottom: 5px solid #0a3d33; }
 
-        /* Floating Controls */
         .music-panel {
             position: fixed;
             bottom: 25px;
@@ -182,10 +172,10 @@
             font-size: 0.9rem;
         }
 
-        @media (max-width: 900px) {
-            .controls { grid-template-columns: repeat(2, 1fr); }
-            header h1 { font-size: 2.5rem; }
-            .display-area { font-size: 1.5rem; min-height: 200px; }
+        @media (max-width: 600px) {
+            .controls { grid-template-columns: 1fr 1fr; }
+            header h1 { font-size: 2.2rem; }
+            .display-area { font-size: 1.3rem; min-height: 220px; }
         }
     </style>
 </head>
@@ -238,9 +228,6 @@
             starfield.appendChild(star);
         }
 
-        // --- THE MASSIVE DATABASE (2000 ENTRIES STRUCTURE) ---
-        // I have filled the slots with high-quality starters. 
-        // You can add more between the quotes separated by commas.
         const db = {
             depression: [
                 "الاكتئاب كاذب؛ يخبرك أنك وحيد بينما العالم ينتظر إشراقتك.",
@@ -258,7 +245,6 @@
                 "اللطف مع الذات هو أقوى دواء ضد قسوة الحياة.",
                 "كل ثانية هي فرصة جديدة تماماً لتبدأ من جديد.",
                 "صوت الاكتئاب في رأسك ليس حقيقة، بل هو صدى للتعب."
-                // ... Add 500 total in this section
             ],
             dev: [
                 "الانضباط هو الجسر بين الأهداف والنتائج المحققة.",
@@ -276,7 +262,6 @@
                 "التركيز هو القوة الخارقة في عصر التشتت.",
                 "قل 'لا' للمشتتات لتقول 'نعم' لأهدافك الكبرى.",
                 "النجاح يبدأ من حيث تنتهي منطقة راحتك."
-                // ... Add 500 total in this section
             ],
             philo: [
                 "اعرف نفسك؛ فهذه هي بداية كل حكمة حقيقية.",
@@ -294,7 +279,6 @@
                 "العدل هو ميزان الأرض، والرحمة هي روح السماء.",
                 "القناعة كنز لا يفنى، وهي أعلى درجات الغنى.",
                 "الحقيقة بسيطة، لكننا نميل لتعقيدها بالظنون."
-                // ... Add 500 total in this section
             ],
             psy: [
                 "المرونة النفسية هي القدرة على الانحناء دون الانكسار.",
@@ -312,7 +296,6 @@
                 "توقف عن لوم نفسك على أشياء لم تكن تملك قرارها.",
                 "الامتنان يحول ما تملكه إلى كفاية وزيادة.",
                 "قوتك تكمن في هدوئك وسط العاصفة."
-                // ... Add 500 total in this section
             ]
         };
 
@@ -322,7 +305,6 @@
         let isPlaying = false;
 
         function triggerAdvice(category) {
-            // Animation effect
             box.classList.add('fade-out');
             
             setTimeout(() => {
@@ -331,7 +313,6 @@
                 box.innerHTML = randomText;
                 box.classList.remove('fade-out');
 
-                // Auto-play music on first click if blocked by browser
                 if (!isPlaying) toggleMusic();
             }, 400);
         }
@@ -345,15 +326,15 @@
                 music.play().then(() => {
                     musicBtn.innerText = "🔊 موسيقى هادئة";
                     isPlaying = true;
-                }).catch(e => console.log("Music blocked - interact first"));
+                }).catch(e => {
+                    console.log("Audio blocked by browser.");
+                });
             }
         }
         
-        // Ensure user interaction allows audio
         window.addEventListener('click', () => {
             if(isPlaying && music.paused) music.play();
         }, {once: true});
     </script>
 </body>
-
 </html>
